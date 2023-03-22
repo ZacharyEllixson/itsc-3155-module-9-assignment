@@ -32,10 +32,11 @@ def create_movies_form():
 @app.post('/movies')
 def create_movie():
     # TODO: Feature 2
+  
     # After creating the movie in the database, we redirect to the list all movies page
-    movie_name = request.form.get('movieName')
-    director_name = request.form.get('directorName')
-    rating = request.form.get('selectRating')
+    movie_name = request.form['movieName']
+    director_name = request.form['directorName']
+    rating = request.form['selectRating']
     get_movie_repository().create_movie(movie_name, director_name, int(rating))
     print(movie_name, director_name, int(rating))
     print(movie_repository.get_all_movies())
@@ -58,12 +59,17 @@ def get_single_movie(movie_id: int):
 
 @app.get('/movies/<int:movie_id>/edit')
 def get_edit_movies_page(movie_id: int):
-    return render_template('edit_movies_form.html')
+    movie = movie_repository.get_movie_by_id(movie_id)
+    return render_template('edit_movies_form.html', movie=movie)
 
 
 @app.post('/movies/<int:movie_id>')
 def update_movie(movie_id: int):
     # TODO: Feature 5
+    movie_repository.update_movie
+    # Resources
+    # https://www.blog.pythonlibrary.org/2017/12/14/flask-101-adding-editing-and-displaying-data/
+    # https://www.youtube.com/watch?v=Us9DuF4KWUE
     # After updating the movie in the database, we redirect back to that single movie page
     return redirect(f'/movies/{movie_id}')
 
