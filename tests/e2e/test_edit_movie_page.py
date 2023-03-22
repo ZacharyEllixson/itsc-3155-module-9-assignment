@@ -6,12 +6,9 @@ from app import app
 import conftest
 
 # create our test function
-
-
 def test_edit_e2e(test_app):
     response = test_app.get('/movies/<int:movie_id>')
-
-    assert response.status_coude == 200
+    assert response.status_code == 200
 
 # Resources
 # https://www.youtube.com/watch?v=bToSg1TSpMA
