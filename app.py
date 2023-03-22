@@ -50,7 +50,14 @@ def create_movie():
 
 @app.get('/movies/search')
 def search_movies():
-    # TODO: Feature 3
+    # Feature 3
+    title = request.args.get("title") # request.args returns ImmutableMultiDict
+    #print(title) # Use .get("title") to get the user input
+    if (title): #If there is a title (any user input)
+        rating = movie_repository.get_movie_by_title(title).rating # Returns None if there is no match
+        if (rating): #If there was a match then rating != None
+            return render_template('search_movies.html', title=title, rating=rating, search_active = True)
+    #else:
     return render_template('search_movies.html', search_active=True)
 
 
