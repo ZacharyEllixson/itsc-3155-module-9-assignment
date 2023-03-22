@@ -17,6 +17,7 @@
         <th>Movie</th>
         <th>Director</th>
         <th>Star Rating</th>
+        <th></th>
     </tr>
 
     {% for id, movie in all_movies.items() %}
@@ -25,6 +26,11 @@
         <td>{{movie.title}}</td>
         <td>{{movie.director}}</td>
         <td>{{movie.rating}}</td>
+        <td>
+            <form action="/movies/{{movie.movie_id}}" method="get">
+                <button class="btn btn-primary" type="submit">View</button>
+            </form>
+        </td>
     </tr>
 
     {%endfor%}
