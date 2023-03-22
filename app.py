@@ -50,8 +50,9 @@ def search_movies():
     title = request.args.get("title") # request.args returns ImmutableMultiDict
     #print(title) # Use .get("title") to get the user input
     if (title): #If there is a title (any user input)
-        rating = movie_repository.get_movie_by_title(title).rating # Returns None if there is no match
+        rating = movie_repository.get_movie_by_title(title) # Returns None if there is no match
         if (rating): #If there was a match then rating != None
+            rating = rating.rating # Now that we are sure there was a match we can get the rating
             return render_template('search_movies.html', title=title, rating=rating, search_active = True)
     #else:
     return render_template('search_movies.html', search_active=True)
