@@ -77,4 +77,7 @@ def update_movie(movie_id: int):
 @app.post('/movies/<int:movie_id>/delete')
 def delete_movie(movie_id: int):
     # TODO: Feature 6
-    pass
+    # Taking in movie_id parameter and then calling delete_movie method on the movie_repository to delete the corresponding movie
+    movie_repository.delete_movie(movie_id)
+    # Redirecting back to the movie page
+    return redirect('/movies')
