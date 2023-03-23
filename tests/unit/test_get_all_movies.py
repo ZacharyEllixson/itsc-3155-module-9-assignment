@@ -5,3 +5,5 @@ from app import list_all_movies
 
 def test_get_all_movies():
     get_movie_repository().create_movie('Movie Name', 'Director Name', 1)
+    movie = get_movie_repository().get_all_movies()
+

@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 # TODO: Feature 5
 # first import the function we want to test via e2e test
 from src.repositories.movie_repository import get_movie_repository
@@ -29,4 +27,3 @@ def test_create_movie_validation_error(test_app):
 
 # Resources
 # https://www.youtube.com/watch?v=bToSg1TSpMA
->>>>>>> 8ae7dff84ff88082b4074c24f8d0bc524f4a92e6
