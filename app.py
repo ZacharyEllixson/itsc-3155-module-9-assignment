@@ -1,4 +1,4 @@
-from flask import Flask, redirect, render_template, request
+from flask import Flask, redirect, render_template, request, abort
 #
 
 from src.repositories.movie_repository import get_movie_repository
@@ -78,8 +78,14 @@ def update_movie(movie_id: int):
     # TODO: Feature 5
     movieIdent = movie_id
     movieTitle = request.form.get('title')
+    if not movieTitle:
+        abort(400)
     movieDirector = request.form.get('director')
+    if not movieDirector:
+        abort(400)
     movieRating = request.form.get('rating')
+    if not movieRating:
+        abort(400)
     movie_repository.update_movie(
         movieIdent, movieTitle, movieDirector, movieRating)
     # After updating the movie in the database, we redirect back to that single movie page
