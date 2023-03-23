@@ -38,9 +38,9 @@ def create_movie():
     director_name = request.form['directorName']
     rating = request.form['selectRating']
     get_movie_repository().create_movie(movie_name, director_name, int(rating))
-    print(movie_name, director_name, int(rating))
-    print(movie_repository.get_all_movies())
-    
+    #print(movie_name, director_name, int(rating))
+    #print(movie_repository.get_all_movies())
+
     return redirect('/movies')
 
 
