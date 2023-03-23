@@ -1,4 +1,4 @@
-from flask import Flask, redirect, render_template , request
+from flask import Flask, redirect, render_template, request
 #
 
 from src.repositories.movie_repository import get_movie_repository
@@ -17,11 +17,11 @@ def index():
 @app.get('/movies')
 def list_all_movies():
     # TODO: Feature 1
-    
-    #get dict from get_all_movies
+
+    # get dict from get_all_movies
     all_movies = movie_repository.get_all_movies()
-   
-    return render_template('list_all_movies.html', list_movies_active=True, all_movies = all_movies)
+
+    return render_template('list_all_movies.html', list_movies_active=True, all_movies=all_movies)
 
 
 @app.get('/movies/new')
@@ -32,7 +32,7 @@ def create_movies_form():
 @app.post('/movies')
 def create_movie():
     # TODO: Feature 2
-  
+
     # After creating the movie in the database, we redirect to the list all movies page
     movie_name = request.form['movieName']
     director_name = request.form['directorName']
@@ -40,21 +40,23 @@ def create_movie():
     get_movie_repository().create_movie(movie_name, director_name, int(rating))
     print(movie_name, director_name, int(rating))
     print(movie_repository.get_all_movies())
-    
+
     return redirect('/movies')
 
 
 @app.get('/movies/search')
 def search_movies():
     # Feature 3
-    title = request.args.get("title") # request.args returns ImmutableMultiDict
-    #print(title) # Use .get("title") to get the user input
-    if (title): #If there is a title (any user input)
-        rating = movie_repository.get_movie_by_title(title) # Returns None if there is no match
-        if (rating): #If there was a match then rating != None
-            rating = rating.rating # Now that we are sure there was a match we can get the rating
-            return render_template('search_movies.html', title=title, rating=rating, search_active = True)
-    #else:
+    # request.args returns ImmutableMultiDict
+    title = request.args.get("title")
+    # print(title) # Use .get("title") to get the user input
+    if (title):  # If there is a title (any user input)
+        rating = movie_repository.get_movie_by_title(
+            title)  # Returns None if there is no match
+        if (rating):  # If there was a match then rating != None
+            rating = rating.rating  # Now that we are sure there was a match we can get the rating
+            return render_template('search_movies.html', title=title, rating=rating, search_active=True)
+    # else:
     return render_template('search_movies.html', search_active=True)
 
 
@@ -74,10 +76,12 @@ def get_edit_movies_page(movie_id: int):
 @app.post('/movies/<int:movie_id>')
 def update_movie(movie_id: int):
     # TODO: Feature 5
-    movie_repository.update_movie
-    # Resources
-    # https://www.blog.pythonlibrary.org/2017/12/14/flask-101-adding-editing-and-displaying-data/
-    # https://www.youtube.com/watch?v=Us9DuF4KWUE
+    movieIdent = movie_id
+    movieTitle = request.form.get('title')
+    movieDirector = request.form.get('director')
+    movieRating = request.form.get('rating')
+    movie_repository.update_movie(
+        movieIdent, movieTitle, movieDirector, movieRating)
     # After updating the movie in the database, we redirect back to that single movie page
     return redirect(f'/movies/{movie_id}')
 
